@@ -2,7 +2,7 @@ import psycopg2
 
 def main():
     conn = psycopg2.connect(
-        host = "3.15.239.196",
+        host = "18.189.178.29",
         database = "random_data",
         user = "admin",
         password = "admin",
@@ -11,12 +11,13 @@ def main():
     
     cur = conn.cursor()
 
-    sql = "select version();"
+    sql = "select * from users limit 10;"
     cur.execute(sql)
 
-    version = cur.fetchone()
+    data = cur.fetchall()
 
-    print(f"Postgres version: {version}")
+    for row in data:
+        print(row)
 
     cur.close()
     conn.close()
