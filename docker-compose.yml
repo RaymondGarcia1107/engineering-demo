@@ -1,22 +1,42 @@
 services: 
 
-  postgres:
-    image: postgres:14
-    container_name: postgres
+  airflow-webserver:
+    image: apache/airflow:2.7.2
     restart: always
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: random_data
-    ports:
-      - "5432:5432"
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}
+      AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW__CORE__FERNET_KEY}
+      AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW__WEBSERVER__SECRET_KEY}
+      AIRFLOW__WEBSERVER__EXPOSE_CONFIG: 'true'
     volumes:
-      - dbdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD","pg_isready","-U","admin"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      - ./airflow/dags:/opt/airflow/dags
+      - ./dbt:/opt/airflow/dbt
+    ports:
+      - "8080:8080"
+    command: >
+      bash -c "airflow db init &&
+               airflow users create --username admin --password admin --firstname Ray --lastname Garcia --role Admin --email ray@example.com &&
+               airflow webserver"
 
-volumes:
-  dbdata:
+  airflow-scheduler:
+    image: apache/airflow:2.7.2
+    depends_on:
+      - airflow-webserver
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./dbt:/opt/airflow/dbt
+    command: >
+      bash -c "airflow scheduler"
+
+  dbt:
+    image: ghcr.io/dbt-labs/dbt-postgres:1.7.8
+    working_dir: /opt/dbt
+    volumes:
+      - ./dbt:/opt/dbt
+    entrypoint: ["tail", "-f", "/dev/null"]  # Keeps it running for shell access
+    environment:
+      DBT_PROFILES_DIR: /opt/dbt
