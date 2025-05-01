@@ -22,8 +22,7 @@ def upload_df_to_s3(df, s3_path):
     df.to_parquet(buffer, engine = "pyarrow", index=False)
     buffer.seek(0)
 
-    session = boto3.Session(region_name = os.environ["REGION"])
-    s3 = session.client('s3')
+    s3 = boto3.Session(region_name = os.environ["REGION"]).client('s3')
     s3.upload_fileobj(buffer, os.environ["S3_BUCKET"], s3_path)
     print(f'Uploaded to s3://{os.environ["S3_BUCKET"]}/{s3_path}')
     return None
