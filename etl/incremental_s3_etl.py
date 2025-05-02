@@ -50,6 +50,8 @@ def incremental_export(table_name, watermark_col):
     Variable.set(var_key, new_sync)
     print(f"Updated watermark for {table_name} to {new_sync}")
 
+    return s3_path
+
 def increment_changes():
     incremental_export("users", "updated_at")
     incremental_export("transactions", "updated_at")

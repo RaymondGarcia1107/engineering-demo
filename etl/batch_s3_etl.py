@@ -3,6 +3,7 @@ import psycopg2
 import boto3
 import io
 import os
+from datetime import datetime, timezone
 
 def fetch_table(sql):
     conn = psycopg2.connect(
@@ -25,14 +26,16 @@ def upload_df_to_s3(df, s3_path):
     s3 = boto3.Session(region_name = os.environ["REGION"]).client('s3')
     s3.upload_fileobj(buffer, os.environ["S3_BUCKET"], s3_path)
     print(f'Uploaded to s3://{os.environ["S3_BUCKET"]}/{s3_path}')
-    return None
 
-def export_tables():
-    users_df = fetch_table("SELECT * FROM users;")
-    upload_df_to_s3(users_df, "users/users.parquet")
+def export_tables(table_name):
+    df = fetch_table(f"SELECT * FROM {table_name};") 
+    
+    run_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    s3_path = f"{table_name}/run_date={run_date}/{table_name}.parquet"
 
-    transactions_df = fetch_table("SELECT * FROM transactions;")
-    upload_df_to_s3(transactions_df, "transactions/transactions.parquet")
+    upload_df_to_s3(df, s3_path)
+
+    return s3_path
 
 if __name__ == '__main__':
     export_tables()
