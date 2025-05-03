@@ -32,7 +32,7 @@ def incremental_export(table_name, watermark_col):
 
     if df.empty:
         print(f"No new rows for {table_name} since {last_sync}")
-        return
+        return []
     
     run_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     run_ts = datetime.now(timezone.utc).isoformat()
@@ -50,7 +50,9 @@ def incremental_export(table_name, watermark_col):
     Variable.set(var_key, new_sync)
     print(f"Updated watermark for {table_name} to {new_sync}")
 
-    return s3_path
+    path = []
+    path.append(s3_path)
+    return path
 
 def increment_changes():
     incremental_export("users", "updated_at")

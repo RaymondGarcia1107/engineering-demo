@@ -11,6 +11,9 @@ def incremental_load_from_s3(table_name, s3_keys):
     if not s3_keys:
         print(f"No new files to load for {table_name}")
         return
+
+    # TODO: Lazily parsing this list up here
+    s3_keys = s3_keys[0]
     
     conn = psycopg2.connect(
         host=os.environ['POSTGRES_HOST'],

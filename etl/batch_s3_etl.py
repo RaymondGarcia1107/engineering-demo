@@ -35,7 +35,9 @@ def export_tables(table_name):
 
     upload_df_to_s3(df, s3_path)
 
-    return s3_path
+    path = []
+    path.append(s3_path)
+    return path
 
 if __name__ == '__main__':
     export_tables()

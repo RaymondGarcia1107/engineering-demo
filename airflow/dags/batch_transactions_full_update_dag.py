@@ -29,7 +29,7 @@ with DAG(
         python_callable=incremental_load_from_s3,
         op_kwargs={
             "table_name":"transactions",
-            "s3_keys": "{{ti.xcom_pull(task_ids='export_transactions')}}"    
+            "s3_keys": export_transactions.output    
         }
     )
 
