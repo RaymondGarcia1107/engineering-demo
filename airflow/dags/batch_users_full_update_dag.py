@@ -3,7 +3,7 @@ from airflow.operators.python import PythonOperator
 from airflow.operators.postgres_operator import PostgresOperator  
 from datetime import datetime
 from etl.batch_s3_etl import export_tables
-from etl.incremental_rds_etl import incremental_load_from_s3
+from etl.incremental_rds_hist_etl import incremental_load_from_s3
 
 with DAG(
     dag_id="batch_users_full_update",

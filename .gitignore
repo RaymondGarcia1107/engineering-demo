@@ -1,3 +1,4 @@
 /app/ETL/__pycache__
 venv/
 .env
+.vscode/

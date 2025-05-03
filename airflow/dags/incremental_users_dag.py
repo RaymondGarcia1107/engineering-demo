@@ -2,7 +2,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
 from etl.incremental_s3_etl import incremental_export
-from etl.incremental_rds_etl import incremental_load_from_s3
+from etl.incremental_rds_hist_etl import incremental_load_from_s3
 
 default_args = {
     'owner': 'airflow',
