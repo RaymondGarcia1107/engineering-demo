@@ -2,16 +2,17 @@ from faker import Faker
 import psycopg2
 from psycopg2.extras import execute_values
 import random
+import os
 
 # Initializing a faker object
 fake = Faker()
 
 # Connecting to the database and setting up a cursor
 conn = psycopg2.connect(
-    host = "18.189.178.29",
-    database = "random_data",
-    user = "admin",
-    password = "admin",
+    host = os.environ['SRC_DB_HOST'],
+    database = os.environ['SRC_DB'],
+    user = os.environ['SRC_DB_USER'],
+    password = os.environ['SRC_DB_PASSWORD'],
     port = 5432
 )
 cur = conn.cursor()
