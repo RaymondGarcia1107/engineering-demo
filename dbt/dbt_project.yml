@@ -31,6 +31,12 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   altera_data_platform:
+    raw:
+      +schema: raw
+      +materialized: ephemeral
+    analytics:
+      +schema: analytics
+      +materialized: incremental
     # Config indicated by + and applies to all files under models/example/
     example:
       +materialized: view
