@@ -1,23 +1,41 @@
 {{
     config(
         materialized = "incremental",
-        unique_key = "id",
-        schema = "analytics"
+        unique_key = "id"
     )
 }}
 
+{% if not is_incremental() %}
+
+with ranked as (
+    select
+        *,
+        ROW_NUMBER() OVER (PARTITION BY id ORDER BY updated_at DESC) AS rn
+    from {{ source('raw','users')}}
+)
+
 SELECT
     id,
-    lower(name),
-    email,
-    address,
+    lower(name) as name,
+    lower(email) as email,
+    lower(address) as address,
     created_at,
     updated_at
-FROM
-    {{ source('raw','users')}}
+from ranked
+where rn = 1
 
-{% if is_incremental() %}
-WHERE updated_at > (
-    SELECT MAX(updated_at) FROM {{this}}
+{% else %}
+
+SELECT
+    id,
+    lower(name) as name,
+    lower(email) as email,
+    lower(address) as address,
+    created_at,
+    updated_at
+from {{ source('raw','users')}}
+where updated_at > (
+    select max(updated_at) from {{ this }}
 )
-{% end if %}
+
+{% endif %}

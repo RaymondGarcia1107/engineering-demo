@@ -30,3 +30,37 @@ Happy modeling!
 [0m15:31:11.475801 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f51413857f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f5140b11970>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f51410377a0>]}
 [0m15:31:11.476052 [debug] [MainThread]: Flushing usage events
 [0m15:31:11.665005 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m09:23:25.350594 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fcc2a5acec0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fcc285d25d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fcc285d10d0>]}
+
+
+============================== 09:23:25.357379 | 9ca1dbbf-5d33-4262-83e6-339714256a5f ==============================
+[0m09:23:25.357379 [info ] [MainThread]: Running with dbt=1.9.4
+[0m09:23:25.358679 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/home/stitch/.dbt', 'debug': 'False', 'version_check': 'True', 'log_path': 'logs', 'fail_fast': 'False', 'warn_error': 'None', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'invocation_command': 'dbt deps', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'static_parser': 'True', 'target_path': 'None', 'introspect': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m09:23:25.359733 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path /home/stitch/engineering-demo/dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m09:23:25.361356 [debug] [MainThread]: Resource report: {"command_name": "deps", "command_success": false, "command_wall_clock_time": 0.087821856, "process_in_blocks": "46160", "process_kernel_time": 0.357516, "process_mem_max_rss": "94464", "process_out_blocks": "16", "process_user_time": 1.685434}
+[0m09:23:25.362103 [debug] [MainThread]: Command `dbt deps` failed at 09:23:25.361924 after 0.09 seconds
+[0m09:23:25.362698 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fcc2a5acec0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fcc280a1280>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7fcc285d10d0>]}
+[0m09:23:25.363337 [debug] [MainThread]: Flushing usage events
+[0m09:23:25.581300 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m10:02:55.243107 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7efc67af8da0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7efc691c4d40>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7efc68503ad0>]}
+
+
+============================== 10:02:55.245156 | 83381f49-5f61-46a8-986d-a694f97aa068 ==============================
+[0m10:02:55.245156 [info ] [MainThread]: Running with dbt=1.9.4
+[0m10:02:55.245507 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/home/stitch/.dbt', 'fail_fast': 'False', 'warn_error': 'None', 'log_path': 'logs', 'version_check': 'True', 'debug': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'empty': 'None', 'quiet': 'False', 'no_print': 'None', 'log_format': 'default', 'static_parser': 'True', 'invocation_command': 'dbt debug', 'introspect': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'send_anonymous_usage_stats': 'True'}
+[0m10:02:55.252722 [info ] [MainThread]: dbt version: 1.9.4
+[0m10:02:55.253013 [info ] [MainThread]: python version: 3.12.3
+[0m10:02:55.253221 [info ] [MainThread]: python path: /home/stitch/engineering-demo/venv/bin/python3
+[0m10:02:55.253414 [info ] [MainThread]: os info: Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39
+[0m10:02:55.255874 [error] [MainThread]: Encountered an error:
+Parsing Error
+  Env var required but not provided: 'POSTGRES_HOST'
+[0m10:02:55.256439 [debug] [MainThread]: Resource report: {"command_name": "debug", "command_success": false, "command_wall_clock_time": 0.04589811, "process_in_blocks": "8", "process_kernel_time": 0.087148, "process_mem_max_rss": "96424", "process_out_blocks": "8", "process_user_time": 0.735922}
+[0m10:02:55.256703 [debug] [MainThread]: Command `dbt debug` failed at 10:02:55.256639 after 0.05 seconds
+[0m10:02:55.256921 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7efc67f901d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7efc6801a2a0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7efc67bb4fb0>]}
+[0m10:02:55.257184 [debug] [MainThread]: Flushing usage events
+[0m10:02:54.431728 [debug] [MainThread]: An error was encountered while trying to flush usage events
